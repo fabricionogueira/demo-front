@@ -1,0 +1,27 @@
+<div class="container">
+    <h3>Aircrafts</h3>
+    <mat-table #table [dataSource]="aircraftDataSource">
+
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+            <mat-cell *matCellDef="let aircraft"> {{aircraft.id}} </mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="model">
+            <mat-header-cell *matHeaderCellDef> Model </mat-header-cell>
+            <mat-cell *matCellDef="let aircraft"> {{aircraft.model}} </mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="range">
+            <mat-header-cell *matHeaderCellDef> Range </mat-header-cell>
+            <mat-cell *matCellDef="let aircraft"> {{aircraft.range}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator [length]="total" 
+                   [pageIndex]="0" 
+                   [pageSize]="5" 
+                   [pageSizeOptions]="[5, 10, 25, 50, 100]"></mat-paginator>
+</div>

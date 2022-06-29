@@ -1,0 +1,11 @@
+.container {
+    padding-top: 30px;
+    width: 800px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.mat-table {
+    overflow: auto;
+    max-height: 500px;
+}
