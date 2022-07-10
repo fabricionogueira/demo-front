@@ -1,5 +1,45 @@
 <div class="container">
     <h3>Aircrafts</h3>
+
+    <mat-accordion>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+                <mat-icon>add</mat-icon>
+                Add aircraft
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div style="display: table;  width: 100%;">
+            <form [formGroup]="aircraftForm">
+
+                <div style="display: table-row;">
+                    <div class="cell">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="ID" formControlName="id">
+                            <mat-hint>Only numbers</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="cell">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Model" formControlName="model">
+                        </mat-form-field>
+                    </div>
+                    <div class="cell">
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Range" formControlName="range">
+                            <mat-hint>Only numbers</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="cell">
+                        <button mat-raised-button [disabled]="!isValidForm()" (click)="onSubmit()">Add</button>
+                    </div>
+                </div>
+            </form>
+          </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+
+    
     <mat-table #table [dataSource]="aircraftDataSource">
 
         <ng-container matColumnDef="id">

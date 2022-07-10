@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { Aircraft } from 'src/app/models/aircraft.model';
 import { AircraftService } from 'src/app/services/aircraft.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-aircraft-registration',
@@ -12,6 +14,8 @@ import { AircraftService } from 'src/app/services/aircraft.service';
 })
 export class AircraftRegistrationComponent implements OnInit, OnDestroy, AfterViewInit {
 
+  panelOpenState = false;
+
   displayedColumns = ['id', 'model', 'range'];
   aircraftDataSource: MatTableDataSource<Aircraft> = new MatTableDataSource<Aircraft>();
 
@@ -19,9 +23,21 @@ export class AircraftRegistrationComponent implements OnInit, OnDestroy, AfterVi
 
   @ViewChild('paginator', {static: true}) paginator!: MatPaginator;
 
-  constructor(private aircraftService : AircraftService) { }
+  aircraftForm!: FormGroup;
+
+  constructor(private aircraftService : AircraftService,
+              private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+
+    this.aircraftForm = this.formBuilder.group(
+      {
+        id: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
+        model: ['', Validators.required],
+        range: ['', Validators.required]
+      }
+    )
+
     this.subscriptions.push(
       this.aircraftService.listAllAircrafts().subscribe(aircrafts => {
         this.aircraftDataSource.data = aircrafts;
@@ -40,6 +56,14 @@ export class AircraftRegistrationComponent implements OnInit, OnDestroy, AfterVi
 
   get total() {
     return this.aircraftDataSource.data.length;
+  }
+
+  isValidForm() {
+    return this.aircraftForm.valid;
+  }
+
+  onSubmit(): void {
+    console.log(this.aircraftForm.value);
   }
 
 }
